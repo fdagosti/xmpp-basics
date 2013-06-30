@@ -6,7 +6,7 @@ import getpass
 from optparse import OptionParser
 
 
-class EchoBot(ClientXMPP):
+class SimpleClient(ClientXMPP):
 
     def __init__(self, jid, password):
         ClientXMPP.__init__(self, jid, password)
@@ -43,8 +43,8 @@ class EchoBot(ClientXMPP):
         #     self.disconnect()
 
     def message(self, msg):
-        if msg['type'] in ('chat', 'normal'):
-            msg.reply("Thanks for sending\n%(body)s" % msg).send()
+        #print("message received "+msg["body"])
+        pass
 
 
 def startBot():
@@ -72,7 +72,7 @@ def startBot():
     logging.basicConfig(level=opts.loglevel,format='%(levelname)-8s %(message)s')
 
 
-    xmpp = EchoBot(opts.jid, opts.password)
+    xmpp = SimpleClient(opts.jid, opts.password)
     xmpp.connect()
     xmpp.process()
 
